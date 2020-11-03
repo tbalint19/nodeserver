@@ -14,7 +14,7 @@ app.use(prometheusMiddleware(app))
 app.use(logger())
 
 app.use('/health', healthcheck)
-app.use('/api/content', content)
+app.use('/api', content)
 
 const staticFileMiddleware = express.static('public/dist')
 app.use(history())
