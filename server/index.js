@@ -17,8 +17,16 @@ app.use('/health', healthcheck)
 app.use('/api', content)
 
 const staticFileMiddleware = express.static('public/dist')
-app.use(history())
 app.use(staticFileMiddleware)
+
+
+app.all('/*\.*', async (req, res) => {
+  res.status(404).send('404 Not found')
+})
+app.all('/**', async (req, res) => {
+  req.url = 'index.html'
+  app.handle(req, res)
+})
 
 app.use(errorHandler)
 
