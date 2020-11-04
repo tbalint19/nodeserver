@@ -3,11 +3,7 @@ const router = express.Router()
 const fs = require('fs')
 const get = require('lodash.get')
 
-const cache = () => memcachedContent = require('../../public/dist/content.json')
-
-let memcachedContent = {}
-setInterval(cache, 10*1000)
-cache()
+const memcachedContent = require('../../public/dist/content.json')
 
 const getFilteredLocales = (lang, path, toExclude) => {
   const { locales } = memcachedContent
