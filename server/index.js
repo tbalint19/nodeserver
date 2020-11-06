@@ -24,7 +24,7 @@ app.all('/*\.*', async (req, res) => {
   res.status(404).send('404 Not found')
 })
 app.all('/**', async (req, res) => {
-  console.log("No prerendered page found - redirecting to root");
+  console.log(`No prerendered page found (${req.url}) - redirecting to root`)
   req.url = 'index.html'
   app.handle(req, res)
 })
