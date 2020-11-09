@@ -49,8 +49,15 @@ router.get('/content*', async (req, res) => {
   const filteredContent = { ...get(memcachedContent, path) }
   const filteredLocales = getLocales(localePath, toExclude)
 
-  for (let key of toExclude) {
-    delete filteredContent[key]
+  if (Array.isArray(filteredContent)) {
+    for (let elem of filteredContent) {
+      if (elem[key])
+        delete elem[key]
+    }
+  } else {
+    for (let key of toExclude) {
+      delete filteredContent[key]
+    }
   }
 
   return res.json({ content: filteredContent || {}, locales: filteredLocales })
