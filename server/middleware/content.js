@@ -51,8 +51,10 @@ router.get('/content*', async (req, res) => {
 
   if (Array.isArray(filteredContent)) {
     for (let elem of filteredContent) {
-      if (elem[key])
-        delete elem[key]
+      for (let key of toExclude) {
+        if (elem[key])
+          delete elem[key]
+      }
     }
   } else {
     for (let key of toExclude) {
