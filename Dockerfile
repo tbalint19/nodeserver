@@ -1,4 +1,4 @@
-FROM repository.vodafone.hu/docker-vodafone/voda-rhel7-nodejs10-base:latest
+FROM repository.vodafone.hu/docker-vodafone/voda-rhel7-nodejs-base:1.3.1
 
 ADD . /appDir
 WORKDIR /appDir
