@@ -51,8 +51,12 @@ const connect = async (filePath) => {
   }
 
   const resolve = (params, query) => {
+
     const toExclude = resolveToExclude(query)
     const { path, localePath } = resolvePath(params)
+
+    const key = `${path}:${toExclude.sort()}`
+    if (memcache[key]) return memcache[key]
 
     const filteredContent = { ...get(memcachedContent, path) }
     const filteredLocales = getLocales(localePath, toExclude)
@@ -70,7 +74,8 @@ const connect = async (filePath) => {
       }
     }
 
-    return { content: filteredContent || {}, locales: filteredLocales }
+    memcache[key] = { content: filteredContent || {}, locales: filteredLocales }
+    return memcache[key]
   }
 
   return resolve
